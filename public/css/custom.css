@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
-    background-color: whitesmoke;
-  
+    background-color: #ffff;
+    font-family: 'Roboto', sans-serif;
   }
   label,legend{
     font-weight:bold
@@ -9,7 +9,7 @@ body {
   
   .form-tambah,.contact-manager{
     border:1px solid #ced4da;
-    box-shadow: 0 4px 5px #ced4da;
+    box-shadow: 0 5px 5px #ced4da;
     background-color: white;
   
   }
@@ -25,7 +25,19 @@ body {
   .search{
     margin:20px;
     display:inline-block;
-    border-radius:0
+    border-radius:0;
+    padding-left: 40px
+  }
+  .cari {
+    position: relative;
+  }
+  .gambar{
+    position: absolute;
+    top:30%;
+    left:4%;
+    transform: translate(-30%/-5%);
+    width:30px;
+    height:auto
   }
   .filter{
     margin:20px;
@@ -60,29 +72,31 @@ body {
     text-align :center
   }
   
-  #kolom-data #edit{
-    color:#007bff
-  }
+  /* #kolom-data #edit{
+    color:#66b9e0
+  } */
   
   .table a{
     padding:5px
   }
   #edit:hover{
     text-decoration: none;
-    background-color: #007bff;
+    background-color: #66b9e0;
     color:#fff !important
   }
   #edit{
-    color:#007bff;
+    color:#66b9e0;
     font-weight: bold;
-    border:1px solid #007bff;
+    border:1px solid #66b9e0;
     padding: 5px 10px;
-    margin-right:10px
+    margin-right:10px;
+    font-size:13px
   }
   #hapus{
     color:#dc3545;
     font-weight: bold;
-    border:1px solid #dc3545
+    border:1px solid #dc3545;
+    font-size:13px
     
   }
   #hapus:hover{
