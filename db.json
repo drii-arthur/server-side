@@ -1,39 +1,32 @@
 {
   "contacts": [
     {
-      "id": 1,
-      "fullName": "Genna Arnli",
-      "phoneNumber": "5278765234",
-      "email": "garnli0@photobucket.com",
-      "gender": "female"
+      "fullName": "donadel",
+      "phoneNumber": "12345678",
+      "email": "driiarthur@gmail.com",
+      "gender": "Male",
+      "id": 1
     },
     {
-      "fullName": "Lioni",
-      "phoneNumber": "085278765234",
-      "email": "lioni0@mail.com",
-      "gender": "female",
+      "fullName": "muhammad pandriadi",
+      "phoneNumber": "0123456789",
+      "email": "pandrir23@gmail.com",
+      "gender": "Male",
       "id": 2
     },
     {
-      "fullName": "drii arthur",
-      "phoneNumber": "087870746597",
-      "email": "pandrir23@gmail.com",
-      "gender": "Male",
+      "fullName": "Genna Arnli",
+      "phoneNumber": "5278765234",
+      "email": "garnli0@photobucket.com",
+      "gender": "Female",
       "id": 3
     },
     {
-      "fullName": "don ontohod",
-      "phoneNumber": "0123456",
-      "email": "driiarthur@gmail.com",
+      "fullName": "Kakalina Pietasch",
+      "phoneNumber": "3118199662",
+      "email": "kpietasch2@auda.org.au",
       "gender": "Female",
-      "id": 5
-    },
-    {
-      "fullName": "ujang gibeg",
-      "phoneNumber": "1234567890",
-      "email": "ujang@gmail.com",
-      "gender": "Male",
-      "id": 6
+      "id": 4
     }
   ]
 }
