@@ -7,7 +7,7 @@ let url_set = 1; // 1 untuk local
 if (url_set == 1) {
     base_url = "http://localhost:3000/contacts/"
 } else {
-    base_url = "https://ll1v4y9jw7.sse.codesandbox.io/contacts"
+    base_url = "https://5k6vj03zpl.sse.codesandbox.io/contacts"
 }
 
 function onFormSubmit() {
@@ -21,10 +21,11 @@ function onFormSubmit() {
 
 function view() {
 
-    let result = fetch('http://localhost:3000/contacts')
+    fetch('http://localhost:3000/contacts')
         .then((response) => response.json()).then((data) => data.map(item => {
             let tbody = document.getElementById("kolom-data");
             let row = tbody.insertRow();
+            row.setAttribute("id", "data_" + item.id);
             let id = row.insertCell(0);
             let fullName = row.insertCell(1);
             let phoneNumber = row.insertCell(2);
@@ -37,18 +38,20 @@ function view() {
             phoneNumber.innerHTML = item.phoneNumber;
             email.innerHTML = item.email;
             gender.innerHTML = item.gender;
-            action.innerHTML = `<a href="#" id="edit">edit</a>
-                                   <a href="#" id="hapus" onclick="handleRemove(remove.id)">delete</a`
+            action.innerHTML = `<a href="#" id="edit" data-id=${item.id}>Edit</a>
+                                   <a href="#" id="hapus"" data-id=${item.id}>Delete</a`
         }))
-    return result
+
 
 }
+
+
+// function input data baru
 const myInput = () => {
     let fullName = document.getElementById("fullName");
     let phoneNumber = document.getElementById("phone");
     let email = document.getElementById("email");
     let gender = document.getElementById("gender");
-    l
     let result = {
         "fullName": fullName.value,
         "phoneNumber": phoneNumber.value,
@@ -58,9 +61,9 @@ const myInput = () => {
     return result;
 }
 
-// return post;
-// console.log(result)
 
+
+// function tambah data
 const newPost = post => {
     const option = {
         method: 'POST',
@@ -71,28 +74,11 @@ const newPost = post => {
     }
     return fetch('http://localhost:3000/contacts', option)
         .then((respons) => respons.json())
-        .then((data) => data.map(item => {
-            let tbody = document.getElementById("kolom-data");
-            let row = tbody.insertRow();
-            let id = row.insertCell(0);
-            let fullName = row.insertCell(1);
-            let phoneNumber = row.insertCell(2);
-            let email = row.insertCell(3);
-            let gender = row.insertCell(4);
-            let action = row.insertCell(5);
-
-            id.innerHTML = item.id;
-            fullName.innerHTML = item.fullName;
-            phoneNumber.innerHTML = item.phoneNumber;
-            email.innerHTML = item.email;
-            gender.innerHTML = item.gender;
-            action.innerHTML = `<a href="#" id="edit">edit</a>
-                                   <a href="#" id="hapus" onclick="handleRemove(remove.id)">delete</a`
-        }))
+        .then((data))
         .catch((error) => console.error(`error: ${error}`))
 
 }
-
+// function validasi form tambah data
 function validation() {
     let fullName = document.getElementById("fullName").value;
     let phoneNumber = document.getElementById("phone").value;
@@ -139,23 +125,25 @@ function validation() {
     return isValid;
 }
 
-// const remove = {
-//     // id: item.id
-//     id: 4
-// }
+
+
+
+view()
+
+
+
+
+// const remove = 7
 // const handleRemove = remove => {
-//     const option = {
+//     const options = {
 //         method: "DELETE",
 //         body: JSON.stringify(remove),
 //         headers: new Headers({
 //             'Content-Type': 'application/json'
 //         })
 //     }
-//     return fetch('http://localhost:3000/contacts', option)
+//     return fetch('http://localhost:3000/contacts', options)
 //         .then((respons) => respons.json())
-//         .then((...data) => console.log(data))
+//         .then((data) => console.log(data))
 //         .catch((error) => console.error(`error: ${error}`))
 // }
-
-
-view()
