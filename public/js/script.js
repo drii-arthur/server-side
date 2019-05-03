@@ -9,14 +9,23 @@ if (url_set == 1) {
 } else {
     base_url = "https://5k6vj03zpl.sse.codesandbox.io/contacts"
 }
-
+selectedRow = null;
 function onFormSubmit() {
     if (validation()) {
-        let post = myInput()
-        newPost(post);
+        let post = myInput();
+        if (selectedRow == null) {
+            newPost(post);
+        }
+        else {
+            let contact = myInput();
+            updateRecord(contact)
+            resetForm()
+        }
+
     } else {
         event.preventDefault();
     }
+
 }
 
 function view() {
@@ -25,7 +34,6 @@ function view() {
         .then((response) => response.json()).then((data) => data.map(item => {
             let tbody = document.getElementById("kolom-data");
             let row = tbody.insertRow();
-            row.setAttribute("id", "data_" + item.id);
             let id = row.insertCell(0);
             let fullName = row.insertCell(1);
             let phoneNumber = row.insertCell(2);
@@ -38,8 +46,8 @@ function view() {
             phoneNumber.innerHTML = item.phoneNumber;
             email.innerHTML = item.email;
             gender.innerHTML = item.gender;
-            action.innerHTML = `<a href="#" id="edit" data-id=${item.id}>Edit</a>
-                                   <a href="#" id="hapus"" data-id=${item.id}>Delete</a`
+            action.innerHTML = `<a href="#" id="edit" onclick="onEdit(this)">Edit</a>
+                                   <a href="#" id="hapus"  onclick="remove(`+ item.id + `)">Delete</a`
         }))
 
 
@@ -74,7 +82,7 @@ const newPost = post => {
     }
     return fetch('http://localhost:3000/contacts', option)
         .then((respons) => respons.json())
-        .then((data))
+        // .then((data))
         .catch((error) => console.error(`error: ${error}`))
 
 }
@@ -125,25 +133,74 @@ function validation() {
     return isValid;
 }
 
+// function ketika tombol edit di klik
+function onEdit(td) {
+    // menentukan isi value yang akan di kirim ke form submit
+    selectedRow = td.parentElement.parentElement;
+    document.getElementById("id").value = selectedRow.cells[0].innerHTML;
+    document.getElementById("fullName").value = selectedRow.cells[1].innerHTML;
+    document.getElementById("phone").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("email").value = selectedRow.cells[3].innerHTML;
+    document.getElementById("gender").value = selectedRow.cells[4].innerHTML;
+}
 
+// const update = (update, id) => {
+
+//     const options = {
+//         method: 'PUT',
+//         body: JSON.stringify(update),
+//         headers: new Headers({
+//             'Content-type': 'application/json'
+//         })
+//     }
+//     fetch(`http://localhost:3000/contacts/${id}`, options)
+//         .then((respons) => respons.json())
+//         .then((data) => {
+//             document.getElementById("id").value = data.id;
+//             document.getElementById("fullName").value = data.fullName;
+//             document.getElementById("phone").value = data.phoneNumber;
+//             document.getElementById("email").value = data.email;
+//             document.getElementById("gender").value = data.gender;
+//             console.log(data)
+//             selectedRow = data;
+
+//         })
+//         .catch((error) => console.error(`error: ${error}`))
+// }
+// function untuk edit value
+function updateRecord(contact) {
+    const option = {
+        method: "PUT",
+        body: JSON.stringify(contact),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    fetch(`http://localhost:3000/contacts/${selectedRow.cells[0].innerHTML}`, option)
+        .then((respons) => respons.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.error(`error: ${error}`))
+
+}
+
+// function hapus data
+// masih belum sempurna karena harus di refresh untuk melihat hasilnya
+const remove = (id) => {
+    const options = {
+        method: "DELETE",
+    }
+    fetch(`http://localhost:3000/contacts/${id}`, options)
+        .catch((error) => console.error(`error: ${error}`))
+}
+// function untuk mengosongkan form input
+function resetForm() {
+    document.getElementById("fullName").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("gender").value = ""
+}
 
 
 view()
 
 
-
-
-// const remove = 7
-// const handleRemove = remove => {
-//     const options = {
-//         method: "DELETE",
-//         body: JSON.stringify(remove),
-//         headers: new Headers({
-//             'Content-Type': 'application/json'
-//         })
-//     }
-//     return fetch('http://localhost:3000/contacts', options)
-//         .then((respons) => respons.json())
-//         .then((data) => console.log(data))
-//         .catch((error) => console.error(`error: ${error}`))
-// }
