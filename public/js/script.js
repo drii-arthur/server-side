@@ -30,8 +30,9 @@ function onFormSubmit() {
 
 function view() {
 
-    fetch('http://localhost:3000/contacts')
-        .then((response) => response.json()).then((data) => data.map(item => {
+    fetch(base_url)
+        .then((response) => response.json())
+        .then((data) => data.map(item => {
             let tbody = document.getElementById("kolom-data");
             let row = tbody.insertRow();
             let id = row.insertCell(0);
@@ -80,7 +81,7 @@ const newPost = post => {
             'Content-Type': 'application/json'
         })
     }
-    return fetch('http://localhost:3000/contacts', option)
+    return fetch(base_url, option)
         .then((respons) => respons.json())
         // .then((data))
         .catch((error) => console.error(`error: ${error}`))
@@ -176,7 +177,7 @@ function updateRecord(contact) {
             "Content-Type": "application/json"
         }
     }
-    fetch(`http://localhost:3000/contacts/${selectedRow.cells[0].innerHTML}`, option)
+    fetch(`${base_url}/${selectedRow.cells[0].innerHTML}`, option)
         .then((respons) => respons.json())
         .then((data) => console.log(data))
         .catch((error) => console.error(`error: ${error}`))
@@ -189,8 +190,9 @@ const remove = (id) => {
     const options = {
         method: "DELETE",
     }
-    fetch(`http://localhost:3000/contacts/${id}`, options)
+    fetch(`${base_url}/${id}`, options)
         .catch((error) => console.error(`error: ${error}`))
+
 }
 // function untuk mengosongkan form input
 function resetForm() {
