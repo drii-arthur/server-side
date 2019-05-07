@@ -47,8 +47,8 @@ function view() {
             phoneNumber.innerHTML = item.phoneNumber;
             email.innerHTML = item.email;
             gender.innerHTML = item.gender;
-            action.innerHTML = `<a href="#" id="edit" onclick="onEdit(this)">Edit</a>
-                                   <a href="#" id="hapus"  onclick="remove(`+ item.id + `)">Delete</a`
+            action.innerHTML = `<a href="#" id="edit" onclick="onEdit(this)">Edit<i class='fas fa-pencil-alt'></i></a>
+                                   <a href="#" id="hapus"  onclick="remove(`+ item.id + `);document.location.reload(true)">Delete<i class='fas fa-user-times'></i></a>`
         }))
 
 
@@ -83,7 +83,7 @@ const newPost = post => {
     }
     return fetch(base_url, option)
         .then((respons) => respons.json())
-        // .then((data))
+        .then((data))
         .catch((error) => console.error(`error: ${error}`))
 
 }
@@ -145,29 +145,7 @@ function onEdit(td) {
     document.getElementById("gender").value = selectedRow.cells[4].innerHTML;
 }
 
-// const update = (update, id) => {
 
-//     const options = {
-//         method: 'PUT',
-//         body: JSON.stringify(update),
-//         headers: new Headers({
-//             'Content-type': 'application/json'
-//         })
-//     }
-//     fetch(`http://localhost:3000/contacts/${id}`, options)
-//         .then((respons) => respons.json())
-//         .then((data) => {
-//             document.getElementById("id").value = data.id;
-//             document.getElementById("fullName").value = data.fullName;
-//             document.getElementById("phone").value = data.phoneNumber;
-//             document.getElementById("email").value = data.email;
-//             document.getElementById("gender").value = data.gender;
-//             console.log(data)
-//             selectedRow = data;
-
-//         })
-//         .catch((error) => console.error(`error: ${error}`))
-// }
 // function untuk edit value
 function updateRecord(contact) {
     const option = {
@@ -185,7 +163,6 @@ function updateRecord(contact) {
 }
 
 // function hapus data
-// masih belum sempurna karena harus di refresh untuk melihat hasilnya
 const remove = (id) => {
     const options = {
         method: "DELETE",
@@ -201,6 +178,33 @@ function resetForm() {
     document.getElementById("email").value = "";
     document.getElementById("gender").value = ""
 }
+
+
+document.getElementById("search").addEventListener('keyup', e => {
+    const val = e.target.value;
+
+    fetch(base_url)
+        .then((response) => response.json())
+        .then((data) => data.map(item => {
+            let tbody = document.getElementById("kolom-data");
+            let row = tbody.insertRow();
+            let id = row.insertCell(0);
+            let fullName = row.insertCell(1);
+            let phoneNumber = row.insertCell(2);
+            let email = row.insertCell(3);
+            let gender = row.insertCell(4);
+            let action = row.insertCell(5);
+
+            id.innerHTML = item.id;
+            fullName.innerHTML = item.fullName;
+            phoneNumber.innerHTML = item.phoneNumber;
+            email.innerHTML = item.email;
+            gender.innerHTML = item.gender;
+            action.innerHTML = `<a href="#" id="edit" onclick="onEdit(this)">Edit<i class='fas fa-pencil-alt'></i></a>
+                                   <a href="#" id="hapus"  onclick="remove(`+ item.id + `);document.location.reload(true)">Delete<i class='fas fa-user-times'></i></a>`
+        }))
+
+})
 
 
 view()

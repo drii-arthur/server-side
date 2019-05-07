@@ -88,9 +88,12 @@ body {
     color:#66b9e0;
     font-weight: bold;
     border:1px solid #66b9e0;
-    padding: 5px 10px;
+    padding: 5px 3px 5px 5px;
     margin-right:10px;
     font-size:13px
+  }
+  #edit i,#hapus i{
+    margin-left:5px;
   }
   #hapus{
     color:#dc3545;
