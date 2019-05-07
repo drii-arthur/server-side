@@ -92,7 +92,8 @@ body {
     margin-right:10px;
     font-size:13px
   }
-  #edit i,#hapus i{
+  #edit i,#hapus i
+  {
     margin-left:5px;
   }
   #hapus{

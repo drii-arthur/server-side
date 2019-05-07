@@ -28,6 +28,7 @@ function onFormSubmit() {
 
 }
 
+
 function view() {
 
     fetch(base_url)
@@ -48,7 +49,7 @@ function view() {
             email.innerHTML = item.email;
             gender.innerHTML = item.gender;
             action.innerHTML = `<a href="#" id="edit" onclick="onEdit(this)">Edit<i class='fas fa-pencil-alt'></i></a>
-                                   <a href="#" id="hapus"  onclick="remove(`+ item.id + `);document.location.reload(true)">Delete<i class='fas fa-user-times'></i></a>`
+                                <a href="#" id="hapus"  onclick="remove(`+ item.id + `);document.location.reload(true)">Delete<i class='fas fa-user-times'></i></a>`
         }))
 
 
@@ -181,28 +182,34 @@ function resetForm() {
 
 
 document.getElementById("search").addEventListener('keyup', e => {
-    const val = e.target.value;
+    const inputValue = e.target.value;
 
     fetch(base_url)
         .then((response) => response.json())
-        .then((data) => data.map(item => {
-            let tbody = document.getElementById("kolom-data");
-            let row = tbody.insertRow();
-            let id = row.insertCell(0);
-            let fullName = row.insertCell(1);
-            let phoneNumber = row.insertCell(2);
-            let email = row.insertCell(3);
-            let gender = row.insertCell(4);
-            let action = row.insertCell(5);
+        .then((data) => {
+            let tbody = document.getElementById("kolom-data")
+            tbody.innerHTML = "";
 
-            id.innerHTML = item.id;
-            fullName.innerHTML = item.fullName;
-            phoneNumber.innerHTML = item.phoneNumber;
-            email.innerHTML = item.email;
-            gender.innerHTML = item.gender;
-            action.innerHTML = `<a href="#" id="edit" onclick="onEdit(this)">Edit<i class='fas fa-pencil-alt'></i></a>
+            data.map(item => {
+                if (item.fullName.toLowerCase().indexOf(inputValue) != -1) {
+                    let row = tbody.insertRow();
+                    let id = row.insertCell(0);
+                    let fullName = row.insertCell(1);
+                    let phoneNumber = row.insertCell(2);
+                    let email = row.insertCell(3);
+                    let gender = row.insertCell(4);
+                    let action = row.insertCell(5);
+
+                    id.innerHTML = item.id;
+                    fullName.innerHTML = item.fullName;
+                    phoneNumber.innerHTML = item.phoneNumber;
+                    email.innerHTML = item.email;
+                    gender.innerHTML = item.gender;
+                    action.innerHTML = `<a href="#" id="edit" onclick="onEdit(this)">Edit<i class='fas fa-pencil-alt'></i></a>
                                    <a href="#" id="hapus"  onclick="remove(`+ item.id + `);document.location.reload(true)">Delete<i class='fas fa-user-times'></i></a>`
-        }))
+                }
+            })
+        })
 
 })
 
